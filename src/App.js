@@ -1,7 +1,8 @@
-// import './App.css'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { VanillaForm } from './components/vanilla-form'
+import { VanillaForm } from 'components/vanilla-form'
+import { Navigation } from 'components/navigation'
 
 const Container = styled.div`
   background-color: #282c34;
@@ -17,7 +18,14 @@ const Container = styled.div`
 function App() {
   return (
     <Container>
-       <VanillaForm />
+      <Router>
+        <Navigation />
+        <Switch>
+          <Route path="/">
+            <VanillaForm />
+          </Route>
+        </Switch>
+      </Router>
     </Container>
   );
 }
