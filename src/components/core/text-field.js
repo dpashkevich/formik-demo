@@ -31,11 +31,17 @@ const Input = styled.input`
   appearance: none;
 `
 
-export const TextField = ({label, ...props}) => (
+const Error = styled.div`
+  margin-top: 5px;
+  color: #dd0000;
+`
+
+export const TextField = ({label, error, ...props}) => (
   <Container>
     <Label>
       <LabelText>{label}</LabelText>
       <Input {...props} />
     </Label>
+    {error && <Error>{error}</Error>}
   </Container>
 )
