@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import styled from 'styled-components'
 
 import { TextField } from 'components/core/text-field'
@@ -17,13 +18,36 @@ const Heading = styled.div`
     margin-bottom: 20px;
 `
 
-export const VanillaForm = () => (
-  <Form>
-    <Heading>Please log in</Heading>
+export const VanillaForm = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-    <TextField label="Email" type="email" />
-    <TextField label="Password" type="password" />
+  const handleEmailChange = ({ target: { value } }) => {
+    setEmail(value)
+  }
 
-    <Button type="submit">Log in</Button>
-  </Form>
-)
+  const handlePasswordChange = ({ target: { value } }) => {
+    setPassword(value)
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    alert(`
+      Logging in!
+      email=${email}
+      password=${password}
+    `)
+  }
+
+  return (
+    <Form onSubmit={handleSubmit}>
+      <Heading>Please log in</Heading>
+
+      <TextField label="Email" type="email" value={email} onChange={handleEmailChange} />
+      <TextField label="Password" type="password" value={password} onChange={handlePasswordChange} />
+
+      <Button type="submit">Log in</Button>
+    </Form>
+  )
+}
