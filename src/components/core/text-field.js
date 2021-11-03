@@ -32,10 +32,10 @@ const Input = styled.input`
 `
 
 export const TextField = ({label, ...props}) => (
-    <Container>
-        <Label>
-            <LabelText>{label}</LabelText>
-            <Input {...props} />
-        </Label>
-    </Container>
+  <Container>
+    <Label>
+      <LabelText>{label}</LabelText>
+      <Input {...props} />
+    </Label>
+  </Container>
 )

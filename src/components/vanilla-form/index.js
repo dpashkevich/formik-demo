@@ -17,15 +17,13 @@ const Heading = styled.div`
     margin-bottom: 20px;
 `
 
-
-
 export const VanillaForm = () => (
-    <Form>
-        <Heading>Please log in</Heading>
+  <Form>
+    <Heading>Please log in</Heading>
 
-        <TextField label="Email" type="email" />
-        <TextField label="Password" type="password" />
+    <TextField label="Email" type="email" />
+    <TextField label="Password" type="password" />
 
-        <Button type="submit">Log in</Button>
-    </Form>
+    <Button type="submit">Log in</Button>
+  </Form>
 )
