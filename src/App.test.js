@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, act } from '@testing-library/react'
+import { render, screen, fireEvent, act, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import App from './App'
 
@@ -54,7 +54,9 @@ variants.forEach((variant) => {
         it('logs me in', async () => {
           await loginWith('hello@example.com', '123')
 
-          expect(alertSpy).toHaveBeenCalledWith(`Logging in!\nemail=hello@example.com\npassword=123`)
+          await waitFor(() => {
+            expect(alertSpy).toHaveBeenCalledWith(`Logging in!\nemail=hello@example.com\npassword=123`)
+          })
         })
       })
 

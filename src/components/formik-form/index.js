@@ -6,8 +6,14 @@ import { Button } from 'components/core/button'
 import { Container } from 'components/form/container'
 import { Heading } from 'components/form/heading'
 
+import { SubmitButton } from './submit-button'
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
 export const FormikForm = () => {
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values) => {
+    await sleep(300)
+
     alert([
       'Logging in!',
       `email=${values.email}`,
@@ -34,7 +40,7 @@ export const FormikForm = () => {
             <TextField label="Email" name="email" type="email" />
             <TextField label="Password" name="password" type="password" />
 
-            <Button type="submit">Log in</Button>
+            <SubmitButton>Log in</SubmitButton>
           </Form>
         )}
       </Formik>
