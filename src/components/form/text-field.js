@@ -9,6 +9,7 @@ export const TextField = ({ label, ...props }) => {
       label={label}
       error={meta.touched && meta.error ? meta.error : null}
       {...fieldProps}
+      {...props}
     />
   )
 }
