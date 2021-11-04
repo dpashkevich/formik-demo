@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { VanillaForm } from 'components/vanilla-form'
+import { FormikForm } from 'components/formik-form'
 import { Navigation } from 'components/navigation'
 
 const Container = styled.div`
@@ -21,8 +22,11 @@ function App() {
       <Router>
         <Navigation />
         <Switch>
-          <Route path="/">
+          <Route exact path="/">
             <VanillaForm />
+          </Route>
+          <Route path="/formik">
+            <FormikForm />
           </Route>
         </Switch>
       </Router>

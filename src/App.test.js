@@ -1,4 +1,5 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, act } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import App from './App'
 
 it('renders the login form', () => {
@@ -6,59 +7,80 @@ it('renders the login form', () => {
   expect(screen.getByText(/Please log in/i)).toBeInTheDocument()
   expect(screen.getByText(/Email/i)).toBeInTheDocument()
   expect(screen.getByText(/Password/i)).toBeInTheDocument()
-  expect(screen.getByRole('button', {name: /Log in/i})).toBeInTheDocument()
+  expect(screen.getByRole('button', { name: /Log in/i })).toBeInTheDocument()
 })
 
-describe('login process', () => {
-  let alertSpy
+it('renders the navigation with Vanilla Form selected', () => {
+  render(<App />)
+  expect(screen.getByRole('link', { name: 'Vanilla Form', current: 'page' })).toBeInTheDocument()
+  expect(screen.getByRole('link', { name: 'Formik Form' })).toBeInTheDocument()
+})
 
-  beforeEach(() => {
-    alertSpy = jest.spyOn(window, 'alert').mockImplementation(() => {})
-    render(<App />)
-  })
+const variants = [
+  'Vanilla Form',
+  'Formik Form'
+]
 
-  afterEach(() => {
-    alertSpy.mockRestore()
-  })
+variants.forEach((variant) => {
+  describe(variant, () => {
+    describe('login process', () => {
+      let alertSpy
 
-  const loginWith = (email, password) => {
-    const emailInput = screen.getByLabelText('Email')
-      fireEvent.change(emailInput, { target: { value: email } })
-      const passwordInput = screen.getByLabelText('Password')
-      fireEvent.change(passwordInput, { target: { value: password } })
+      beforeEach(() => {
+        alertSpy = jest.spyOn(window, 'alert').mockImplementation(() => {})
+        render(<App />)
+        const variantLink = screen.getByRole('link', { name: variant })
+        fireEvent.click(variantLink)
+      })
 
-      const loginButton = screen.getByRole('button', {name: /Log in/i})
-      fireEvent.click(loginButton)
-  }
+      afterEach(() => {
+        alertSpy.mockRestore()
+      })
 
-  describe('valid credentials', () => {
-    it('logs me in', () => {
-      loginWith('hello@example.com', '123')
+      const loginWith = async (email, password) => {
+        const emailInput = screen.getByLabelText('Email')
+        email && userEvent.type(emailInput, email)
 
-      expect(alertSpy).toHaveBeenCalledWith(`Logging in!\nemail=hello@example.com\npassword=123`)
-    })
-  })
+        const passwordInput = screen.getByLabelText('Password')
+        password && userEvent.type(passwordInput, password)
 
-  describe('invalid credentials', () => {
-    it('rejects empty email', () => {
-      loginWith('', '123')
+        const loginButton = screen.getByRole('button', {name: /Log in/i})
+        await act(async () => {
+          fireEvent.click(loginButton)
+        })
+      }
 
-      expect(screen.getByText("Email can't be blank.")).toBeInTheDocument()
-      expect(alertSpy).not.toHaveBeenCalled()
-    })
+      describe('valid credentials', () => {
+        it('logs me in', async () => {
+          await loginWith('hello@example.com', '123')
 
-    it('rejects invalid email', () => {
-      loginWith('abc', '456')
+          expect(alertSpy).toHaveBeenCalledWith(`Logging in!\nemail=hello@example.com\npassword=123`)
+        })
+      })
 
-      expect(screen.getByText('Email is invalid.')).toBeInTheDocument()
-      expect(alertSpy).not.toHaveBeenCalled()
-    })
+      describe('invalid credentials', () => {
+        it('rejects empty email', async () => {
+          await loginWith('', '123')
 
-    it('rejects empty password', () => {
-      loginWith('someone@example.com', '')
+          expect(screen.getByText("Email can't be blank.")).toBeInTheDocument()
+          expect(alertSpy).not.toHaveBeenCalled()
+        })
 
-      expect(screen.getByText("Password can't be blank.")).toBeInTheDocument()
-      expect(alertSpy).not.toHaveBeenCalled()
+        it('rejects invalid email', async () => {
+          await loginWith('abc', '456')
+
+          expect(screen.getByText('Email is invalid.')).toBeInTheDocument()
+          expect(alertSpy).not.toHaveBeenCalled()
+        })
+
+        it('rejects empty password', async () => {
+          await loginWith('someone@example.com', '')
+
+          expect(screen.getByText("Password can't be blank.")).toBeInTheDocument()
+          expect(alertSpy).not.toHaveBeenCalled()
+        })
+      })
     })
   })
 })
+
