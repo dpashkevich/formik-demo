@@ -1,6 +1,6 @@
 import { Formik, Form } from 'formik'
 
-import { TextField } from 'components/core/text-field'
+import { TextField } from 'components/form/text-field'
 import { Button } from 'components/core/button'
 import { Container } from 'components/form/container'
 import { Heading } from 'components/form/heading'
@@ -24,8 +24,8 @@ export const FormikForm = () => {
           <Form>
             <Heading>Please log in</Heading>
 
-            <TextField label="Email" type="email" {...formik.getFieldProps('email')} />
-            <TextField label="Password" type="password" {...formik.getFieldProps('password')} />
+            <TextField label="Email" name="email" type="email" />
+            <TextField label="Password" name="password" type="password" />
 
             <Button type="submit">Log in</Button>
           </Form>
