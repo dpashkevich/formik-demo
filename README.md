@@ -1,4 +1,4 @@
-# React forms with Formik demo app
+# Managing React forms with Formik (demo app)
 
 This is a demo application that implements a simple login form using vanilla React and using Formik for comparison.
 
@@ -6,7 +6,7 @@ The vanilla React form implementation is in `src/components/vanilla-form`, and t
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Available scripts
 
 In the project directory, you can run:
 
