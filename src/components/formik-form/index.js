@@ -33,16 +33,14 @@ export const FormikForm = () => {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {formik => (
-          <Form>
-            <Heading>Please log in</Heading>
+        <Form>
+          <Heading>Please log in</Heading>
 
-            <TextField label="Email" name="email" type="email" />
-            <TextField label="Password" name="password" type="password" />
+          <TextField label="Email" name="email" type="email" />
+          <TextField label="Password" name="password" type="password" />
 
-            <SubmitButton>Log in</SubmitButton>
-          </Form>
-        )}
+          <SubmitButton>Log in</SubmitButton>
+        </Form>
       </Formik>
     </Container>
   )
