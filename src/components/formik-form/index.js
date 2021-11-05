@@ -2,7 +2,6 @@ import { Formik, Form } from 'formik'
  import * as Yup from 'yup'
 
 import { TextField } from 'components/form/text-field'
-import { Button } from 'components/core/button'
 import { Container } from 'components/form/container'
 import { Heading } from 'components/form/heading'
 
