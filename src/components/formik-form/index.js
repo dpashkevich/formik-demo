@@ -32,7 +32,7 @@ export const FormikForm = () => {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        <Form>
+        <Form noValidate>
           <Heading>Please log in</Heading>
 
           <TextField label="Email" name="email" type="email" />
