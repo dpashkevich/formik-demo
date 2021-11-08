@@ -1,5 +1,7 @@
 # Managing React forms with Formik (demo app)
 
+[![Build](https://github.com/dpashkevich/formik-demo/actions/workflows/test.yml/badge.svg)](https://github.com/dpashkevich/formik-demo/actions/workflows/test.yml)
+
 This is a demo application that implements a simple login form using vanilla React and using Formik for comparison.
 
 ![Screenshot of the demo app showing a login form and a toggle between vanilla and Formik implementations](docs/formik-demo.png)
